@@ -100,8 +100,12 @@
 			            </form>
                     </div>
                     <div class="propPhoto">
-                    	<img src="image/${property.image.name }">
-                	</div>
+			            <!-- Check if property.image list has images -->
+			            <c:if test="${not empty property.image}">
+			                <!-- Display the first image -->
+			                <img src="image/${property.image[0].name}">
+			            </c:if>
+			        </div>
                 </div>
             </c:forEach>
             

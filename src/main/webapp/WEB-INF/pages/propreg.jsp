@@ -102,8 +102,11 @@
         <label for="price" class="moneyLabel">Price:</label>
         <input type="number" id="price" name="price" class="money"><br><br>
         
-        <label for="imageUrl">Photo:</label>
-        <input type="file" id="imageUrl" name="imageUrl"><br><br>
+        <!-- <label for="imageUrl">Photo:</label>
+        <input type="file" id="imageUrl" name="imageUrl"><br><br> -->
+        <label for="imageUrls">Photos:</label>
+		<input type="file" id="imageUrls" name="imageUrls" multiple><br><br>
+        
         
         <h2>Contact Details</h2>
         <label for="email">Email:</label>

@@ -2,6 +2,8 @@
 
 import java.io.File;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,17 +106,21 @@ public class PropertyService {
 		return iPropertyRepo.getReferenceById(id);
 	}
 	
-	public boolean setImage(Property property,MultipartFile file) {
+	public boolean setImage(Property property,MultipartFile[] files) {
+		System.out.println("setImage");
 		try {
-			if(!file.isEmpty()){
-			
-				Image image=Image.builder()
+			if(files.length!=0){
+				List<Image> ls=new ArrayList<>();
+				for(MultipartFile file:files) {
+					Image image=Image.builder()
 							.name(file.getOriginalFilename())
 							.type(file.getContentType())
 							.url(FOLDER+file.getOriginalFilename())
 						    .build();
-				property.setImage(image);
-				file.transferTo(new File(image.getUrl()));
+					ls.add(image);
+					file.transferTo(new File(image.getUrl()));
+				}
+				property.setImage(ls);
 			}
 		}catch(Exception e) {
 			return false;
@@ -126,6 +132,14 @@ public class PropertyService {
 		Optional<Image> image= imageRepo.findByName(fileName);
 		String path=image.get().getUrl();
 		
+		byte[] arr=Files.readAllBytes(new File(path).toPath());
+		return arr;
+	}
+
+	public byte[] getImages(long id) throws Exception{
+		Optional<Image> op=imageRepo.findById(id);
+		String path=op.get().getUrl();
+		System.out.println(path);
 		byte[] arr=Files.readAllBytes(new File(path).toPath());
 		return arr;
 	}

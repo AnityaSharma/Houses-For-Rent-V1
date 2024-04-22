@@ -1,6 +1,7 @@
 package dev.anitya.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -10,12 +11,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -45,9 +46,9 @@ public class Property implements Serializable {
 	@Column(length = 60)
 	private String address;
 	
-	@OneToOne(targetEntity = Image.class,cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = Image.class,cascade = CascadeType.ALL)
 	@JoinColumn(name="IMAGE_ID",referencedColumnName = "id")
-	private Image image;
+	private List<Image> image;
 	
 	private Integer rooms;
 	
@@ -146,13 +147,15 @@ public class Property implements Serializable {
 		this.propertyName = propertyName;
 	}
 
-	public Image getImage() {
+	public List<Image> getImage() {
 		return image;
 	}
 
-	public void setImage(Image image) {
+	public void setImage(List<Image> image) {
 		this.image = image;
 	}
+
+	
 
 	
 	

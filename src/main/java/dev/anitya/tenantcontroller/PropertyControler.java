@@ -45,8 +45,9 @@ public class PropertyControler {
 	
 	@PostMapping("/submitProperty")
 	public String saveProperty(@ModelAttribute("prop") RegisterPropertyRequest prop,
-								@RequestParam("imageUrl") MultipartFile imageFile,
+								@RequestParam("imageUrls") MultipartFile[] imageFile,
 								HttpSession httpSession) {
+		System.out.println("saveProperty");
 		System.out.println(prop.toString());
 		Long userId=(Long)httpSession.getAttribute("id");
 		System.out.println("PropertyControler.saveProperty()"+userId);

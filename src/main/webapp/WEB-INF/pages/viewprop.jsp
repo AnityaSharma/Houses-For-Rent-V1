@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -132,36 +135,20 @@
                 <p> &#8377;${property.price }</p>
             </div>
         </div>
+        
         <div class="images-container">
-        <h2>IMAGES</h2>
-            <div class="mainDiv">
-                <div class="image">
-                    <img src="/images/img3.jpg">
-                </div>
-            
-                <div class="image">
-                    <img src="/images/img5.jpg">
-                </div>
-            </div>
-            <div class="mainDiv">
-                <div class="image">
-                    <img src="/images/img7.jpg">
-                </div>
-                <div class="image">
-                    <img src="/images/img10.jpg">
-                </div>
-            </div>
-            
-            <div class="mainDiv">
-                <div class="image">
-                    <img src="/images/img8.jpg">
-                </div>
-                <div class="image">
-                    <img src="/images/img4.jpg">
-                </div>
-            </div>
-            
-        </div>
+		    <h2>IMAGES</h2>
+		    <div class="mainDiv">
+		        <c:forEach var="index" begin="0" end="${property.image.size() - 1}">
+		            <div class="image">
+		                <img src="image/${property.image[index].name}">
+		            </div>
+		        </c:forEach>
+		    </div>
+		</div>
+
+
+        
     </div>
 </body>
 </html>
