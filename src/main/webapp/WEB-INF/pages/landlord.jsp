@@ -170,7 +170,7 @@
             <button class="switch" onclick="changeToTenant()"><i class="fa-solid fa-arrows-rotate"></i>&nbsp;&nbspSwitch to Tenant</button>
         </div>
         <div>
-            <form>
+            <form action="find" method="post">
                 <div class="form-group formstart">
                     <label for="state">State:</label>
                     <input type="text" id="state" name="state" placeholder="Enter your state" required>

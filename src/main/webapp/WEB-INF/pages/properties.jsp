@@ -100,7 +100,7 @@
 			            </form>
                     </div>
                     <div class="propPhoto">
-                    	<img src="${property.imageUrl }">
+                    	<img src="image/${property.image.name }">
                 	</div>
                 </div>
             </c:forEach>

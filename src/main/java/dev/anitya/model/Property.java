@@ -24,33 +24,33 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table(name="property")
 public class Property implements Serializable {
-	
-	
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
 
 	@Id
 	@SequenceGenerator(name="gen",sequenceName = "reg_prop_seq",initialValue = 1001,allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "gen")
 	private Long id;
+	
 	@Column(length = 50, name="property_name")
 	private String propertyName;
+	
 	@Column(length = 20)
 	private String country;
+	
 	@Column(length = 20)
 	private String state;
+	
 	@Column(length = 20,name = "city_p")
 	private String city;
+	
 	@Column(length = 60)
 	private String address;
-	@Column(name="image_url")
-	private String imageUrl;
+	
+	@OneToOne(targetEntity = Image.class,cascade = CascadeType.ALL)
+	@JoinColumn(name="IMAGE_ID",referencedColumnName = "id")
+	private Image image;
+	
 	private Integer rooms;
+	
 	private Double price;
 	@OneToOne(targetEntity =ContactDetails.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "CONTACT_ID",referencedColumnName = "id")
@@ -144,6 +144,14 @@ public class Property implements Serializable {
 
 	public void setPropertyName(String propertyName) {
 		this.propertyName = propertyName;
+	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
 	}
 
 	

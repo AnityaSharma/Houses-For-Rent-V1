@@ -95,10 +95,12 @@
                         <p><strong>Country:</strong> ${property.country }</p>
                         <p><strong>No. of Rooms:</strong> ${property.rooms }</p>
                         <p><strong>Price:</strong> ${property.price }</p>
-                        
+                        <form action="edit/${property.id }" method="GET">
+			                <button type="submit">Edit</button>
+			            </form>
                     </div>
                     <div class="propPhoto">
-                    	<img src="${property.imageUrl }">
+                    	<img src="image/${property.image.name }">
                 	</div>
                 </div>
             </c:forEach>

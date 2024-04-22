@@ -42,6 +42,7 @@ public class PropertyControler {
 	public String registerProperty() {
 		return "propreg";
 	}
+	
 	@PostMapping("/submitProperty")
 	public String saveProperty(@ModelAttribute("prop") RegisterPropertyRequest prop,
 								@RequestParam("imageUrl") MultipartFile imageFile,
@@ -50,26 +51,10 @@ public class PropertyControler {
 		Long userId=(Long)httpSession.getAttribute("id");
 		System.out.println("PropertyControler.saveProperty()"+userId);
 		UserRegisteration user=propService.getUserById(userId);
-		
 		Property p=propService.builder(prop);
+		propService.setImage(p,imageFile);
 		System.out.println(p.toString());
 		p.setUser(user);
-		
-		if(!imageFile.isEmpty()){
-			try {
-			
-				String uploadedFileName = imageFile.getOriginalFilename();
-				String fileExtension = StringUtils.getFilenameExtension(uploadedFileName);
-//				String uniqueFileName=uploadedFileName+"."+fileExtension;
-		        String uploadedFilePath = uploadsDir + "\\" + uploadedFileName;
-		        File dest = new File(uploadedFilePath);
-		        imageFile.transferTo(dest);
-		        p.setImageUrl(uploadedFilePath);
-			}catch(IOException e) {
-				e.printStackTrace();
-			}
-		
-		}
 		boolean b=propService.saveProp(p);
 		
 		return "redirect:landlord";
@@ -87,10 +72,7 @@ public class PropertyControler {
 		httpSession.setAttribute("state", location.getState().toLowerCase());
 		httpSession.setAttribute("city", location.getCity().toLowerCase());
 		map.put("propertyList", page);
-		System.out.println("PropertyControler.showProperties()"+page.toString());
-		for(Property p:page) {
-			System.out.println(p.getImageUrl());
-		}
+
 		return "properties";
 	}
 	
@@ -102,9 +84,9 @@ public class PropertyControler {
 				   											httpSession.getAttribute("city").toString(),
 				   											page);
 		map.put("propertyList", pagee);
-		for(Property p:pagee) {
-			System.out.println(p.getImageUrl());
-		}
+//		for(Property p:pagee) {
+//			System.out.println(p.getImageUrl());
+//		}
 //		System.out.println("PropertyControler.showProperties()"+page.toString());
 		return "properties";
 	}
@@ -129,4 +111,13 @@ public class PropertyControler {
 		map.put("property", property);
 		return "viewprop";
 	}
+	
+//	@GetMapping("/edit/{id} ")
+//	public String editProp(@PathVariable("id") long id) {
+//		
+//		
+//		return "myprops";
+//	}
+	
+	
 }

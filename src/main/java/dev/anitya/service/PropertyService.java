@@ -1,6 +1,7 @@
 	package dev.anitya.service;
 
-import java.util.List;
+import java.io.File;
+import java.nio.file.Files;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +10,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import dev.anitya.dto.RegisterPropertyRequest;
 import dev.anitya.model.ContactDetails;
+import dev.anitya.model.Image;
 import dev.anitya.model.Property;
 import dev.anitya.model.UserRegisteration;
 import dev.anitya.repository.IPropertyRepo;
+import dev.anitya.repository.ImageRepository;
 import dev.anitya.repository.UserRepository;
 import jakarta.transaction.Transactional;
 
@@ -28,6 +32,11 @@ public class PropertyService {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private ImageRepository imageRepo;
+	
+	private final String FOLDER="C:\\Users\\anity\\Server-File-System\\";
 	
 	@Transactional
 	@Modifying
@@ -93,6 +102,32 @@ public class PropertyService {
 
 	public Property getPropById(Long id) {
 		return iPropertyRepo.getReferenceById(id);
+	}
+	
+	public boolean setImage(Property property,MultipartFile file) {
+		try {
+			if(!file.isEmpty()){
+			
+				Image image=Image.builder()
+							.name(file.getOriginalFilename())
+							.type(file.getContentType())
+							.url(FOLDER+file.getOriginalFilename())
+						    .build();
+				property.setImage(image);
+				file.transferTo(new File(image.getUrl()));
+			}
+		}catch(Exception e) {
+			return false;
+		}
+		return true;
+	}
+	
+	public byte[] getImage(String fileName)throws Exception {
+		Optional<Image> image= imageRepo.findByName(fileName);
+		String path=image.get().getUrl();
+		
+		byte[] arr=Files.readAllBytes(new File(path).toPath());
+		return arr;
 	}
 	
 	
