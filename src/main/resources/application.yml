@@ -1,0 +1,30 @@
+spring: 
+  application: 
+    name: Frontend-Service
+    
+  datasource: 
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///houseforrent
+    username: root
+    password: DevOps
+     
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  
+  mvc: 
+    view:
+      prefix: /WEB-INF/pages/
+      suffix: .jsp
+
+#eureka:
+#  client:
+#    service-url:
+#      default-zone: http://localhost:8761/eureka
+      
+server:
+  port: 8083
+  servlet:
+    context-path: /front 
