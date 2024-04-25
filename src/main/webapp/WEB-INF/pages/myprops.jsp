@@ -78,6 +78,25 @@
             text-align: center;
             margin-top: 20px;
         }
+        .delButton{
+        	font-family: Arial, sans-serif;
+        	margin-left: 25px;
+        	background-color: black;
+        	color: white;
+        	padding: 3px;
+        	width: 80px;
+        	margin-top: 10px;
+        	transition: opacity 0.3s ease;
+        }
+        .editButton{
+        	font-family: Arial, sans-serif;
+        	background-color: black;
+        	width: 80px;
+        	color: white;
+        	padding: 3px;
+        	margin-top: 10px;
+        	transition: opacity 0.3s ease;
+        }
     </style>
 </head>
 <body>
@@ -96,7 +115,9 @@
                         <p><strong>No. of Rooms:</strong> ${property.rooms }</p>
                         <p><strong>Price:</strong> ${property.price }</p>
                         <form action="edit/${property.id }" method="GET">
-			                <button type="submit">Edit</button>
+			                <button type="submit" class="editButton">Edit</button>
+			                
+			                <button type="submit" class="delButton">Delete</button>
 			            </form>
                     </div>
                     <div class="propPhoto">

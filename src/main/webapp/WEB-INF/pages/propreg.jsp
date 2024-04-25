@@ -11,7 +11,7 @@
             display: flex;
             scroll-behavior: smooth;
             height: 100vh;
-            background-color: antiquewhite;
+            background-color: rgb(246, 219, 184);
             align-items: center;
         }
         .registerForm{
@@ -37,7 +37,7 @@
             width: 190px;
         }
         .money{
-            width: 186px;
+            width: 193px;
             margin-left: 40px;
         }
         .addrs{
@@ -58,17 +58,20 @@
             margin-left: 3px;
         }
         .moneyLabel{
-            margin-left: 10px;
+            margin-left: 0px;
         }
         .roomLabel{
             margin-left: 0px;
+        }
+        .photosLabel{
+        margin-right: 40px; 
         }
         .submitButton{
             background-color: antiquewhite;
             border-radius: 3px;
             border-width: 1px;
-            margin-left: 80px;
-            margin-top: 15px;
+            margin-left: 90px;
+            margin-top: 6px;
             width: 130px;
             height: 35px;
         }
@@ -104,7 +107,7 @@
         
         <!-- <label for="imageUrl">Photo:</label>
         <input type="file" id="imageUrl" name="imageUrl"><br><br> -->
-        <label for="imageUrls">Photos:</label>
+        <label for="imageUrls" class="photosLabel">Photos:</label>
 		<input type="file" id="imageUrls" name="imageUrls" multiple><br><br>
         
         

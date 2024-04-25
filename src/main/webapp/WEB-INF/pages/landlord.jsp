@@ -13,10 +13,10 @@
             display: flex;
             scroll-behavior: smooth;
             height: 100vh;
+            background-image: url("images/bgImg.png");
             }
 
         .cont{
-            background: linear-gradient(to bottom right, #f5aace, #e099eb, #e898f3c1);
             height: 600px;
             width: 100%;
         }
