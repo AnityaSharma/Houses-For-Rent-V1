@@ -8,6 +8,8 @@
         /* Replacing Tailwind CSS classes with equivalent CSS code */
         body.transition-all {
             transition-duration: 300ms;
+            margin: 0;
+            padding: 0;'
         }
 
         nav {
