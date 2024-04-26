@@ -36,7 +36,7 @@ public class PropertyControler {
 	@Autowired
 	UserService userService;
 	
-	String uploadsDir="C:\\Users\\anity\\Server-File-System";
+	String uploadsDir="C:\\Users\\hp\\Server-File-System";
 
 	@RequestMapping("/propreg")
 	public String registerProperty() {
@@ -48,6 +48,7 @@ public class PropertyControler {
 								@RequestParam("imageUrls") MultipartFile[] imageFile,
 								HttpSession httpSession) {
 		System.out.println("saveProperty");
+		System.out.println("Address: "+prop.getPropertyName());
 		System.out.println(prop.toString());
 		Long userId=(Long)httpSession.getAttribute("id");
 		System.out.println("PropertyControler.saveProperty()"+userId);

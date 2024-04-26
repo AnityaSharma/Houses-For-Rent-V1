@@ -61,6 +61,7 @@ public class Property implements Serializable {
 	@JoinColumn(name="user_id")
 	private UserRegisteration user;
 
+	
 	public Long getId() {
 		return id;
 	}

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RegisterPropertyRequest {
 
+	private String propertyName;
 	private String country;
 	private String city;
 	private String state;
@@ -17,6 +18,7 @@ public class RegisterPropertyRequest {
 	private String address;
 	private Double price;
 	private ContactDetails contactDetails;
+	
 	public String getCountry() {
 		return country;
 	}
@@ -63,6 +65,12 @@ public class RegisterPropertyRequest {
 	public String toString() {
 		return "RegisterPropertyRequest [country=" + country + ", city=" + city + ", state=" + state + ", rooms="
 				+ rooms + ", address=" + address + ", price=" + price + ", contactDetails=" + contactDetails + "]";
+	}
+	public String getPropertyName() {
+		return propertyName;
+	}
+	public void setPropertyName(String propertyName) {
+		this.propertyName = propertyName;
 	}
 	
 	
