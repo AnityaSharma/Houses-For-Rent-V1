@@ -38,7 +38,7 @@ public class PropertyService {
 	@Autowired
 	private ImageRepository imageRepo;
 	
-	private final String FOLDER="C:\\Users\\hp\\Server-File-System\\";
+	private final String FOLDER="C:\\Users\\anity\\Server-File-System\\";
 	
 	@Transactional
 	@Modifying
