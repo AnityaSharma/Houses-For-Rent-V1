@@ -1,127 +1,185 @@
-<!-- 
+<!--
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Property Listings</title>
+    <title>Property and Contact Details Form</title>
     <style>
-        body {
+        body{
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
-            background-color: rgb(254, 247, 238);
             display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            scroll-behavior: smooth;
+            height: 100vh;
+            background-color: rgb(246, 219, 184);
+            align-items: center;
         }
-
-        header, footer {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 20px;
-        }
-
-        header h1, footer p {
-            margin: 0;
-        }
-
-        main {
-            flex: 1; /* Grow to fill remaining vertical space */
-            padding: 20px;
-        }
-
-        .property {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 15px;
-            height: 220px;
+        .registerForm{
+            background-color: white;
+            border-radius: 6%;
+            height: 550px;
+            width: 440px;
+            justify-content: center;
             display: flex;
+            align-items: center;
+            margin-left: 420px;
         }
-
-        .property h3 {
-            margin-top: 0;
+        form{
+            justify-content: center;
+            align-items: center;
         }
-
-        .property p {
-            margin: 5px 0;
+        .country{
+            margin-left: 20px;
+            width: 190px;
         }
-
-        .propPhoto {
-            height: 210px;
-            width: 340px;
-            margin-left: 300px;
-            margin-right: 50px;
-            border-radius: 10px;
-            border: 2px;
-            margin-top: 4px;
+        .city{
+            margin-left: 50px;
+            width: 190px;
         }
-
-        .details {
-            width: 600px;
-            margin-top: 20px;
+        .money{
+            width: 193px;
+            margin-left: 40px;
+        }
+        .addrs{
+            margin-left: 20px;
+            width: 190px;
+        }
+        .state{
+            margin-left: 40px;
+            width: 190px;
+        }
+        .roms{
+            width: 170px;
+        }
+        .mail{
+            margin-left: 68px;
+        }
+        .phnNo{
+            margin-left: 3px;
+        }
+        .moneyLabel{
+            margin-left: 0px;
+        }
+        .roomLabel{
+            margin-left: 0px;
+        }
+        .photosLabel{
+        margin-right: 40px; 
+        }
+        .submitButton{
+            background-color: antiquewhite;
+            border-radius: 3px;
+            border-width: 1px;
+            margin-left: 90px;
+            margin-top: 6px;
+            width: 130px;
+            height: 35px;
+        }
+        .submitButton:hover{
+            background-color: rgb(246, 219, 184);
+        }
+        .propName{
+        	margin-left: 15px;
+            width: 160px;
+        }
+        form h2{
             margin-left: 30px;
-        }
-
-        img {
-            height: 210px;
-            width: 340px;
-        }
-
-        footer {
-            margin-top: auto; /* Push footer to the bottom */
-        }
-
-        .pagination {
-            text-align: center;
-            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Property Listings</h1>
-    </header>
-    <main>
-        <section>
-            <c:forEach var="property" items="${propertyList.content}">
-                <div class="property">
-                    <div class="details">
-                        <p><strong>Property Name:</strong> ${property.propertyName }</p>
-                        <p><strong>City:</strong> ${property.city }</p>
-                        <p><strong>State:</strong> ${property.state }</p>
-                        <p><strong>Country:</strong> ${property.country }</p>
-                        <p><strong>No. of Rooms:</strong> ${property.rooms }</p>
-                        <p><strong>Price:</strong> ${property.price }</p>
-                    </div>
-                    <div class="propPhoto">
-                    	<img src="${property.imageUrl }">
-                	</div>
-                </div>
-            </c:forEach>
-            <div class="pagination">
-                <%-- Previous page link --%>
-                <c:if test="${propertyList.number > 0}">
-                    <a href="?page=${propertyList.number - 1}">Previous</a>
-                </c:if>
-                
-                <%-- Page numbers --%>
-                <c:forEach var="i" begin="0" end="${propertyList.totalPages - 1}">
-                    <a href="?page=${i}">${i + 1}</a>
-                </c:forEach>
-                
-                <%-- Next page link --%>
-                <c:if test="${propertyList.number < propertyList.totalPages - 1}">
-                    <a href="?page=${propertyList.number + 1}">Next</a>
-                </c:if>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2024 Rental Service</p>
-    </footer>
+    <div class="registerForm">
+    <form action="submitProperty" method="post" enctype="multipart/form-data">
+        <h2>Property Information</h2>
+        <label for="propName" >Property Name:</label>
+        <input type="text" id="propName" name="propName" class="propName"><br><br>
+        
+        <label for="country" >Country:</label>
+        <input type="text" id="country" name="country" class="country"><br><br>
+        
+        <label for="state" >State:</label>
+        <input type="text" id="state" name="state" class="state"><br><br>
+        
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" class="city"><br><br>
+        
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" class="addrs"><br><br>
+        
+        <label for="rooms" class="roomLabel">No. of Rooms:</label>
+        <input type="number" id="rooms" name="rooms" class="roms"><br><br>
+        
+        <label for="price" class="moneyLabel">Price:</label>
+        <input type="number" id="price" name="price" class="money"><br><br>
+        
+        <!-- <label for="imageUrl">Photo:</label>
+        <input type="file" id="imageUrl" name="imageUrl"><br><br> 
+        <label for="imageUrls" class="photosLabel">Photos:</label>
+		<input type="file" id="imageUrls" name="imageUrls" multiple><br><br>
+        
+        
+        <h2>Contact Details</h2>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="contactDetails.eMail" class="mail"><br><br>
+        
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" id="phoneNumber" name="contactDetails.phoneNumber" class="phnNo"><br><br>
+        
+        <input type="submit" value="Submit" class="submitButton">
+    </form>
+    </div>
 </body>
-</html>
--->
+
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            margin-top: 15px;
+            padding: 20px;
+            height: 500px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            width: 150px;
+            text-align: right;
+            margin-right: 10px;
+        }
+        .form-group input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            margin-left: 95px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 150px;
+        }
+        input[type="file"]{
+        	border: none;
+        }
+        .headings{
+			text-align: center;        
+        }
+    </style>
+</html>-->

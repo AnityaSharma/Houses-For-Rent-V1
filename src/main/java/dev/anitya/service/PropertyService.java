@@ -38,7 +38,7 @@ public class PropertyService {
 	@Autowired
 	private ImageRepository imageRepo;
 	
-	private final String FOLDER="C:\\Users\\anity\\Server-File-System\\";
+	private final String FOLDER="C:\\Users\\hp\\Server-File-System\\";
 	
 	@Transactional
 	@Modifying
@@ -73,6 +73,7 @@ public class PropertyService {
 
 	public Property builder(RegisterPropertyRequest prop) {
 		Property p=new Property();
+		p.setPropertyName(prop.getPropertyName());
 		p.setAddress(prop.getAddress());
 		p.setCity(prop.getCity().toLowerCase());
 		p.setCountry(prop.getCountry().toLowerCase());
