@@ -19,13 +19,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 public class Image {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-//	@Column(length = 50)
 	private String name;
 	private String type;
 	private String url;
-	
 }

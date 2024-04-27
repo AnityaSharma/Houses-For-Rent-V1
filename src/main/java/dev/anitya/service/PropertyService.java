@@ -30,6 +30,9 @@ public class PropertyService {
 	private final int PAGE_SIZE=10;
 	
 	@Autowired
+	private UserService userService;
+	
+	@Autowired
 	private IPropertyRepo iPropertyRepo;
 	
 	@Autowired
@@ -144,6 +147,74 @@ public class PropertyService {
 		byte[] arr=Files.readAllBytes(new File(path).toPath());
 		return arr;
 	}
+
+	public boolean deleteProperty(long id) {
+		
+		Optional<Property> o= iPropertyRepo.findById(id);
+		if(o.isPresent()) {
+			Property p=o.get();
+			ContactDetails cd=p.getContactDetails();
+			List<Image> imgs=p.getImage();
+			UserRegisteration user=p.getUser();
+			p.setUser(null);
+			System.out.println("Anitya");
+			deleteImages(p);
+			System.out.println("Anitya");
+			imageRepo.deleteAll(p.getImage());
+			iPropertyRepo.deleteById(p.getId());
+			
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean deleteImages(Property p) {
+		try {
+			List<Image> images= p.getImage();
+			for(Image image:images) {
+				String filePath=FOLDER+image.getName();
+				File file=new File(filePath);
+				file.delete();
+			}
+		}catch(Exception e) {
+			return false;
+		}
+		return true;
+	}
+
+	public List<Property> listMyProps(long id) {
+		UserRegisteration user=userService.getUserById(id);
+		return user.getProperties();
+	}
+	
+	@Transactional
+	@Modifying
+	public boolean deletePropertyByUser(Long userId, long id) {
+		UserRegisteration user=userService.getUserById(userId);
+		List<Property> list=user.getProperties();
+		Property prop=null;
+		
+		for(Property property:list)
+			if(property.getId()==id)
+				prop=property;
+		
+		if(prop!=null) {
+			deleteImages(prop);
+			prop.setUser(null);
+			user.getProperties().remove(prop);	
+			iPropertyRepo.delete(prop);
+			userRepository.save(user);
+			return true;
+		}
+		return false;
+	}
+
+	public boolean editProperty(Long userId, long id) {
+		
+		return false;
+	}
+
+	
 	
 	
 }

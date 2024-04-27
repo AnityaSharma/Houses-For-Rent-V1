@@ -1,14 +1,18 @@
 package dev.anitya.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import dev.anitya.dto.UserLogin;
+import dev.anitya.model.Property;
 import dev.anitya.model.User;
 import dev.anitya.model.UserRegisteration;
 import dev.anitya.repository.UserRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class UserService {
@@ -24,7 +28,9 @@ public class UserService {
 		UserRegisteration u=repository.save(user);
 		return "User registered with id "+u.getId();
 	}
-
+	
+	@Transactional
+	@Modifying
 	public boolean addUser(UserRegisteration user) {
 		try {
 			repository.save(user);
@@ -51,5 +57,14 @@ public class UserService {
 	public UserRegisteration getUserById(long id) {
 		UserRegisteration o= repository.getReferenceById(id);
 		return o;
+	}
+	
+	public boolean isAuthorized(Long userId, long id) {
+		UserRegisteration user=getUserById(userId);
+		List<Property> list=user.getProperties();
+		for(Property property:list)
+			if(property.getId()==id)
+				return true;
+		return false;
 	}
 }

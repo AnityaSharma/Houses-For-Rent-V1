@@ -57,7 +57,7 @@ public class Property implements Serializable {
     @JoinColumn(name = "CONTACT_ID",referencedColumnName = "id")
 	private ContactDetails contactDetails;
 	
-	@ManyToOne
+	@ManyToOne(targetEntity =UserRegisteration.class, cascade = CascadeType.ALL)
 	@JoinColumn(name="user_id")
 	private UserRegisteration user;
 

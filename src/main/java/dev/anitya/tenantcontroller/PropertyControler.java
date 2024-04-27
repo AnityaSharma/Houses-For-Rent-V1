@@ -1,7 +1,5 @@
 package dev.anitya.tenantcontroller;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -71,6 +68,8 @@ public class PropertyControler {
 		Page<Property> page=propService.findAllByStateCity(location.getState().toLowerCase(),
 														   location.getCity().toLowerCase(),
 														   pageable.getPageNumber());
+		List<Property> ls=page.getContent();
+		if(ls.size()==0)return "nolistings";
 		httpSession.setAttribute("state", location.getState().toLowerCase());
 		httpSession.setAttribute("city", location.getCity().toLowerCase());
 		map.put("propertyList", page);
@@ -86,27 +85,19 @@ public class PropertyControler {
 				   											httpSession.getAttribute("city").toString(),
 				   											page);
 		map.put("propertyList", pagee);
-//		for(Property p:pagee) {
-//			System.out.println(p.getImageUrl());
-//		}
-//		System.out.println("PropertyControler.showProperties()"+page.toString());
 		return "properties";
 	}
 	
-	@GetMapping("/mylist")
+	@GetMapping({"/mylist","/delete/mylist"})
 	public String myList(Map<String, Object> map,
 			             HttpSession httpSession) {
-		long id=(long)httpSession.getAttribute("id");
-		UserRegisteration user=userService.getUserById(id);
-//		List<Property> ls=propService.getPropById(id);
-		List<Property> ls=user.getProperties();
+		List<Property> ls=propService.listMyProps((long)httpSession.getAttribute("id"));
 		map.put("myList", ls);
-		System.out.println(ls);
 		return "myprops";
 	}
 		
 	@GetMapping("/viewProperty/{id}")
-	public String viewProperty(@PathVariable Long id,
+	public String viewProperty(@PathVariable long id,
 								Map<String,Object> map) {
 		System.out.println("PropertyControler.viewProperty()"+id);
 		Property property=propService.getPropById(id);
@@ -114,12 +105,28 @@ public class PropertyControler {
 		return "viewprop";
 	}
 	
-//	@GetMapping("/edit/{id} ")
-//	public String editProp(@PathVariable("id") long id) {
-//		
-//		
-//		return "myprops";
-//	}
+	@GetMapping("/delete/{id}")
+	public String deleteProp(@PathVariable long id,
+                              HttpSession httpSession) {
+		Long userId=(long)httpSession.getAttribute("id");
+		boolean flag=propService.deletePropertyByUser(userId,id);
+		if(flag) {
+			System.out.println("HEREHERE");
+			return "redirect:mylist";
+		}else
+			return "error";
+	}
 	
+	@GetMapping("/edit/{id}")
+	public String editProp(@PathVariable long id,
+							Map<String, Object> map,
+            				HttpSession httpSession) {
+		Long userId=(long)httpSession.getAttribute("id");
+		boolean flag=userService.isAuthorized(userId,id);
+		if(flag) {
+			return "editpage";
+		}else
+			return "error";
+	}
 	
 }

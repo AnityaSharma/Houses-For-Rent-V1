@@ -116,7 +116,8 @@
                         <p><strong>Price:</strong> ${property.price }</p>
                         <form action="edit/${property.id }" method="GET">
 			                <button type="submit" class="editButton">Edit</button>
-			                
+			            </form>
+			            <form action="delete/${property.id }" method="GET">
 			                <button type="submit" class="delButton">Delete</button>
 			            </form>
                     </div>

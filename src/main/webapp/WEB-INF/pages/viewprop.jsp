@@ -1,8 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,9 +34,16 @@
 
         .images-container {
             flex: 1;
-            margin-left: 25px;
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 20px;
+            justify-content: flex-end;
+            text-align: right;
+        }
+
+        .images-container h2 {
+            grid-column: 1 / -1;
+            margin-bottom: 20px;
         }
 
         h1 {
@@ -68,15 +72,10 @@
             color: #333;
         }
 
-        .image {
-            margin-bottom: 10px;
-        }
-
         .image img {
+            max-width: 100%;
+            height: auto;
             border-radius: 5px;
-            margin-left: 30px;
-            height: 220px;
-            width: 350px;
         }
 
         .image label {
@@ -84,15 +83,6 @@
             margin-top: 5px;
             font-size: 14px;
             color: #666;
-        }
-        h2{
-            margin-left: 200px;
-        }
-        .mainDiv{
-            display: flex;
-        }
-        .images-container h2{
-            margin-left: 330px;
         }
     </style>
 </head>
@@ -131,24 +121,29 @@
             </div>
             
             <div class="property-details">
-                <label>Price:</label>
+                <label>Price per month:</label>
                 <p> &#8377;${property.price }</p>
+            </div>
+            
+            <div class="property-details">
+                <label>Email:</label>
+                <p> ${property.contactDetails.eMail }</p>
+            </div>
+            
+            <div class="property-details">
+                <label>Phone:</label>
+                <p> ${property.contactDetails.phoneNumber }</p>
             </div>
         </div>
         
         <div class="images-container">
-		    <h2>IMAGES</h2>
-		    <div class="mainDiv">
-		        <c:forEach var="index" begin="0" end="${property.image.size() - 1}">
-		            <div class="image">
-		                <img src="image/${property.image[index].name}">
-		            </div>
-		        </c:forEach>
-		    </div>
-		</div>
-
-
-        
+            <h2>IMAGES</h2>
+            <c:forEach var="index" begin="0" end="${property.image.size() - 1}">
+                <div class="image">
+                    <img src="image/${property.image[index].name}">
+                </div>
+            </c:forEach>
+        </div>
     </div>
 </body>
 </html>

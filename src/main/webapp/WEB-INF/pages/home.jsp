@@ -1,185 +1,151 @@
 <!--
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Property and Contact Details Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Details</title>
     <style>
-        body{
-            font-family: Arial, sans-serif;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f0;
             margin: 0;
+            padding: 0;
+            font-size: larger;
+        }
+
+        .container {
+            max-width: 1500px;
+            margin: 30px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             display: flex;
-            scroll-behavior: smooth;
-            height: 100vh;
-            background-color: rgb(246, 219, 184);
-            align-items: center;
+            flex-wrap: wrap;
         }
-        .registerForm{
-            background-color: white;
-            border-radius: 6%;
-            height: 550px;
-            width: 440px;
-            justify-content: center;
-            display: flex;
-            align-items: center;
-            margin-left: 420px;
+
+        .details-container {
+            flex: 1;
+            padding-right: 20px;
         }
-        form{
-            justify-content: center;
-            align-items: center;
+
+        .images-container {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 20px;
+            justify-content: flex-end;
+            text-align: right;
         }
-        .country{
-            margin-left: 20px;
-            width: 190px;
+
+        .images-container h2 {
+            grid-column: 1 / -1;
+            margin-bottom: 20px;
         }
-        .city{
-            margin-left: 50px;
-            width: 190px;
+
+        h1 {
+            text-align: center;
+            color: #333;
+            text-transform: uppercase;
         }
-        .money{
-            width: 193px;
-            margin-left: 40px;
+
+        .property-details {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 15px;
         }
-        .addrs{
-            margin-left: 20px;
-            width: 190px;
+
+        .property-details:last-child {
+            border-bottom: none;
         }
-        .state{
-            margin-left: 40px;
-            width: 190px;
+
+        .property-details label {
+            font-weight: bold;
+            color: #666;
         }
-        .roms{
-            width: 170px;
+
+        .property-details p {
+            margin: 5px 0;
+            color: #333;
         }
-        .mail{
-            margin-left: 68px;
+
+        .image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
         }
-        .phnNo{
-            margin-left: 3px;
-        }
-        .moneyLabel{
-            margin-left: 0px;
-        }
-        .roomLabel{
-            margin-left: 0px;
-        }
-        .photosLabel{
-        margin-right: 40px; 
-        }
-        .submitButton{
-            background-color: antiquewhite;
-            border-radius: 3px;
-            border-width: 1px;
-            margin-left: 90px;
-            margin-top: 6px;
-            width: 130px;
-            height: 35px;
-        }
-        .submitButton:hover{
-            background-color: rgb(246, 219, 184);
-        }
-        .propName{
-        	margin-left: 15px;
-            width: 160px;
-        }
-        form h2{
-            margin-left: 30px;
+
+        .image label {
+            display: block;
+            margin-top: 5px;
+            font-size: 14px;
+            color: #666;
         }
     </style>
 </head>
 <body>
-    <div class="registerForm">
-    <form action="submitProperty" method="post" enctype="multipart/form-data">
-        <h2>Property Information</h2>
-        <label for="propName" >Property Name:</label>
-        <input type="text" id="propName" name="propName" class="propName"><br><br>
+    <div class="container">
+        <div class="details-container">
+            <h2>PROPERTY DETAILS</h2>
+            <div class="property-details">
+                <label>Name of Property:</label>
+                <p>${property.propertyName }</p>
+            </div>
+            
+            <div class="property-details">
+                <label>Number of Rooms:</label>
+                <p>${property.rooms }</p>
+            </div>
+
+            <div class="property-details">
+                <label>Address:</label>
+                <p>${property.address }</p>
+            </div>
+
+            <div class="property-details">
+                <label>City:</label>
+                <p>${property.city }</p>
+            </div>
+
+            <div class="property-details">
+                <label>State:</label>
+                <p>${property.state }</p>
+            </div>
+
+            <div class="property-details">
+                <label>Country:</label>
+                <p>${property.country }</p>
+            </div>
+            
+            <div class="property-details">
+                <label>Price:</label>
+                <p> &#8377;${property.price }</p>
+            </div>
+            
+            <div class="property-details">
+                <label>Email:</label>
+                <p> &#8377;${property.contactDetails.eMail }</p>
+            </div>
+            
+            <div class="property-details">
+                <label>Phone:</label>
+                <p> &#8377;${property.contactDetails.phoneNumber }</p>
+            </div>
+        </div>
         
-        <label for="country" >Country:</label>
-        <input type="text" id="country" name="country" class="country"><br><br>
-        
-        <label for="state" >State:</label>
-        <input type="text" id="state" name="state" class="state"><br><br>
-        
-        <label for="city">City:</label>
-        <input type="text" id="city" name="city" class="city"><br><br>
-        
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" class="addrs"><br><br>
-        
-        <label for="rooms" class="roomLabel">No. of Rooms:</label>
-        <input type="number" id="rooms" name="rooms" class="roms"><br><br>
-        
-        <label for="price" class="moneyLabel">Price:</label>
-        <input type="number" id="price" name="price" class="money"><br><br>
-        
-        <!-- <label for="imageUrl">Photo:</label>
-        <input type="file" id="imageUrl" name="imageUrl"><br><br> 
-        <label for="imageUrls" class="photosLabel">Photos:</label>
-		<input type="file" id="imageUrls" name="imageUrls" multiple><br><br>
-        
-        
-        <h2>Contact Details</h2>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="contactDetails.eMail" class="mail"><br><br>
-        
-        <label for="phoneNumber">Phone Number:</label>
-        <input type="text" id="phoneNumber" name="contactDetails.phoneNumber" class="phnNo"><br><br>
-        
-        <input type="submit" value="Submit" class="submitButton">
-    </form>
+        <div class="images-container">
+            <h2>IMAGES</h2>
+            <c:forEach var="index" begin="0" end="${property.image.size() - 1}">
+                <div class="image">
+                    <img src="image/${property.image[index].name}">
+                </div>
+            </c:forEach>
+        </div>
     </div>
 </body>
-
-<style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 400px;
-            margin: 50px auto;
-            margin-top: 15px;
-            padding: 20px;
-            height: 500px;
-            background: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .form-group {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .form-group label {
-            width: 150px;
-            text-align: right;
-            margin-right: 10px;
-        }
-        .form-group input {
-            flex: 1;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            margin-left: 95px;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 150px;
-        }
-        input[type="file"]{
-        	border: none;
-        }
-        .headings{
-			text-align: center;        
-        }
-    </style>
-</html>-->
+</html>
+-->
