@@ -63,4 +63,5 @@ public class ContactDetails implements Serializable{
 	public String toString() {
 		return "ContactDetails [id=" + id + ", eMail=" + eMail + ", phoneNumber=" + phoneNumber + "]";
 	}
+	
 }

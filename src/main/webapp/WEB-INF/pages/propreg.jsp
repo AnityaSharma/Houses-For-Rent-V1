@@ -115,11 +115,11 @@
                 <input type="number" id="price" name="price" required>
             </div>
            
-            <div class="form-group">
+	       <div class="form-group">
             	<label for="imageUrls" >Photos:</label>
 				<input type="file" id="imageUrls" class="photosLabel" name="imageUrls" multiple><br><br>
 			</div>
-			
+	
 			<h2 class="headingContact">Contact Details</h2>
             <div class="form-group">
                 <label for="email">Email ID:</label>

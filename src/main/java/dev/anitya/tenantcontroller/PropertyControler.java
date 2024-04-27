@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,18 +45,12 @@ public class PropertyControler {
 	public String saveProperty(@ModelAttribute("prop") RegisterPropertyRequest prop,
 								@RequestParam("imageUrls") MultipartFile[] imageFile,
 								HttpSession httpSession) {
-		System.out.println("saveProperty");
-		System.out.println("Address: "+prop.getPropertyName());
-		System.out.println(prop.toString());
 		Long userId=(Long)httpSession.getAttribute("id");
-		System.out.println("PropertyControler.saveProperty()"+userId);
 		UserRegisteration user=propService.getUserById(userId);
 		Property p=propService.builder(prop);
 		propService.setImage(p,imageFile);
-		System.out.println(p.toString());
 		p.setUser(user);
 		boolean b=propService.saveProp(p);
-		
 		return "redirect:landlord";
 	}
 	
@@ -88,7 +83,7 @@ public class PropertyControler {
 		return "properties";
 	}
 	
-	@GetMapping({"/mylist","/delete/mylist"})
+	@GetMapping({"/mylist","/delete/mylist","/edit/mylist"})
 	public String myList(Map<String, Object> map,
 			             HttpSession httpSession) {
 		List<Property> ls=propService.listMyProps((long)httpSession.getAttribute("id"));
@@ -112,19 +107,35 @@ public class PropertyControler {
 		boolean flag=propService.deletePropertyByUser(userId,id);
 		if(flag) {
 			System.out.println("HEREHERE");
-			return "redirect:mylist";
+			return "redirect:/mylist";
 		}else
 			return "error";
 	}
 	
 	@GetMapping("/edit/{id}")
-	public String editProp(@PathVariable long id,
+	public String preEditProp(@PathVariable long id,
 							Map<String, Object> map,
             				HttpSession httpSession) {
 		Long userId=(long)httpSession.getAttribute("id");
 		boolean flag=userService.isAuthorized(userId,id);
 		if(flag) {
+			Property property=propService.getPropById(id);
+			map.put("property",property);
 			return "editpage";
+		}else
+			return "error";
+	}
+	
+	@PostMapping("/edit/editprop")
+	public String editProp(@ModelAttribute("prop") Property prop,
+							HttpSession httpSession) {
+		Long userId=(Long)httpSession.getAttribute("id");
+		boolean flag=userService.isAuthorized(userId,prop.getId());
+		if(flag) {
+			System.out.println("Anitya");
+			propService.editProperty(prop,userId);
+			System.out.println("Sharma");
+			return "redirect:/mylist";
 		}else
 			return "error";
 	}

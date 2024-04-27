@@ -22,7 +22,7 @@ public class ImageController {
 	@Autowired
 	private PropertyService propertyService;
 	
-	@GetMapping("/image/{imageName}")
+	@GetMapping({"/image/{imageName}","/edit/image/{imageName}"})
 	public ResponseEntity<?> downloadImage(@PathVariable String imageName){
 		
 		try {

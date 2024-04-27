@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -208,10 +209,33 @@ public class PropertyService {
 		}
 		return false;
 	}
-
-	public boolean editProperty(Long userId, long id) {
-		
-		return false;
+	
+	@Transactional
+	@Modifying
+	public boolean editProperty(Property property,long id) {
+		try{
+			System.out.println(property.getImage()+"image here");
+			
+			UserRegisteration user=userService.getUserById(id);
+			Property prop=iPropertyRepo.getReferenceById(property.getId());
+			List<Image> ls=prop.getImage();
+			BeanUtils.copyProperties(property, prop);
+			prop.setUser(user);
+			prop.setImage(ls);
+			System.out.println("Yoooooo");
+			prop.setState(prop.getState().toLowerCase());
+			prop.setCity(prop.getCity().toLowerCase());
+			prop.setContactDetails(new ContactDetails(prop.getContactDetails()
+					.geteMail().toLowerCase(),
+					prop.getContactDetails()
+					.getPhoneNumber()));
+			System.out.println("Anityaaaaaaa");
+//			iPropertyRepo.save(prop);
+			System.out.println("Anityaaaaaaa");
+			return true;
+		}catch(Exception e) {
+			return false;	
+		}
 	}
 
 	
