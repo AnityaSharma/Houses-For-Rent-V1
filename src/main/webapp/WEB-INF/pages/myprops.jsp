@@ -37,7 +37,7 @@
             border: 1px solid #ccc;
             padding: 10px;
             margin-bottom: 15px;
-            height: 220px;
+            height: 240px;
             display: flex;
         }
 
@@ -80,7 +80,6 @@
         }
         .delButton{
         	font-family: Arial, sans-serif;
-        	margin-left: 25px;
         	background-color: black;
         	color: white;
         	padding: 3px;
@@ -97,6 +96,11 @@
         	margin-top: 10px;
         	transition: opacity 0.3s ease;
         }
+        .flexbutton{
+        	 display: flex;
+    align-items: center;
+        }
+       
     </style>
 </head>
 <body>
@@ -115,10 +119,10 @@
                         <p><strong>No. of Rooms:</strong> ${property.rooms }</p>
                         <p><strong>Price:</strong> ${property.price }</p>
                         <form action="edit/${property.id }" method="GET">
-			                <button type="submit" class="editButton">Edit</button>
+			                <button type="submit" class="editButton flexbutton">Edit</button>
 			            </form>
 			            <form action="delete/${property.id }" method="GET">
-			                <button type="submit" class="delButton">Delete</button>
+			                <button type="submit" class="delButton flexbutton">Delete</button>
 			            </form>
                     </div>
                     <div class="propPhoto">
