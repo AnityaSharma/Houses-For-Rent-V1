@@ -37,12 +37,11 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             grid-gap: 20px;
-            justify-content: flex-end;
-            text-align: right;
+            text-align: center;
         }
 
         .images-container h2 {
-            grid-column: 1 / -1;
+            grid-column: span 2;
             margin-bottom: 20px;
         }
 
@@ -84,6 +83,7 @@
             font-size: 14px;
             color: #666;
         }
+        
     </style>
 </head>
 <body>
@@ -138,9 +138,9 @@
         
         <div class="images-container">
             <h2>IMAGES</h2>
-            <c:forEach var="index" begin="0" end="${property.image.size() - 1}">
+            <c:forEach var="image" items="${property.image}">
                 <div class="image">
-                    <img src="image/${property.image[index].name}">
+                    <img src="image/${image.name}" alt="Property Image">
                 </div>
             </c:forEach>
         </div>

@@ -73,7 +73,6 @@
 </head>
 <body>
   <div class="container">
-    <img src="no-listings.jpg" alt="No Listings Available" class="no-listings-image">
     <h1>No Listings Available</h1>
     <p>Oops, it looks like there are no rental listings in your area at the moment.</p>
     <div class="suggestions">
